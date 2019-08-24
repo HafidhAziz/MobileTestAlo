@@ -21,13 +21,68 @@ class LoginViewController: UIViewController {
     }
     
     func setupView() {
-        self.tfEmail.placeholder = "Email"
-        self.tfPassword.placeholder = "Password"
+        self.title = "Login"
         
+        /// Set TextField Email
+        self.tfEmail.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        self.tfEmail.setBorder(color: UIColor.black)
+        self.tfEmail.keyboardType = .emailAddress
+        self.tfEmail.delegate = self
+        
+        /// Set TextField Password
+        self.tfPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        self.tfPassword.setBorder(color: UIColor.black)
+        self.tfPassword.isSecureTextEntry = true
+        self.tfPassword.keyboardType = .default
+        self.tfEmail.delegate = self
+        
+        /// Set Button
+        self.btnLogin.setBorderWithTitle(borderWidth: 1, color: UIColor.black)
+        self.btnLogin.setTitle("Masuk", for: .normal)
+        self.btnLogin.setTitleColor(UIColor.black, for: .normal)
         self.btnLogin.addTarget(self, action: #selector(doLogin), for: .touchUpInside)
     }
     
     @objc func doLogin() {
-        self.navigationController?.pushViewController(MainTabbar(), animated: true)
+        doValidate()
+    }
+    
+    func doValidate() {
+        let email = tfEmail.text!
+        let password = tfPassword.text!
+        if email.count > 0 {
+            if password.count > 0 {
+    //                    doLogin(userName: username, password: password)
+                self.navigationController?.pushViewController(MainTabbar(), animated: true)
+            } else {
+                showAlert(title: "Error", message: "Silahkan input Password Anda")
+                tfPassword.becomeFirstResponder()
+            }
+        } else {
+            showAlert(title: "Error", message: "Silahkan input Email & Password Anda")
+            tfEmail.becomeFirstResponder()
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 30
     }
 }
