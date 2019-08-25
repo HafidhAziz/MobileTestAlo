@@ -1,2 +1,5 @@
 # MobileTestAlo
-Alodokter Mobile Test
+Mobile Test
+
+Note:
+Image size random for list image
