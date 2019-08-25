@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var imageData: [String] = ["Female-Monk","IRONMAN"]
+    var imageData: [String] = ["bmw1", "bmw2", "bmw3", "bmw4", "bmw5", "bmw6"]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,6 +21,8 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -42,12 +44,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell: HomeTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HomeTableViewCell
         
         cell.ivImage.image = UIImage(named: imageData[indexPath.row])
+        cell.selectionStyle = .none
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = CollectionImageViewController()
+        vc.imageData = imageData
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
