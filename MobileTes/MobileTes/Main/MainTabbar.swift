@@ -37,6 +37,8 @@ extension MainTabbar {
         let profileViewController = ProfileViewController()
         profileViewController.tabBarItem = UITabBarItem(title: "" , image: UIImage(named: "profile"), tag: 1)
         profileViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
+        
+        self.tabBar.tintColor = UIColor.black
 
         self.viewControllers = [homeViewController, profileViewController]
     }
