@@ -67,8 +67,10 @@ extension CollectionImageViewController: UICollectionViewDelegate, UICollectionV
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.indicator.currentPage = indexPath.section
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let x = targetContentOffset.pointee.x
+        self.indicator.currentPage = Int(x / collectionView.frame.width)
     }
     
 }
