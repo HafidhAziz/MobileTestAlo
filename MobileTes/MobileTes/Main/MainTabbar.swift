@@ -18,7 +18,7 @@ class MainTabbar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTabBarList()
-        self.navigationItem.hidesBackButton = true
+//        self.navigationItem.hidesBackButton = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -31,10 +31,12 @@ extension MainTabbar {
     @objc private func setTabBarList() {
 
         let homeViewController = HomeViewController()
-        homeViewController.tabBarItem = UITabBarItem(title: "Home" , image: nil, tag: 0)
+        homeViewController.tabBarItem = UITabBarItem(title: "" , image: UIImage(named: "home"), tag: 0)
+        homeViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
 
         let profileViewController = ProfileViewController()
-        profileViewController.tabBarItem = UITabBarItem(title: "Profile" , image: nil, tag: 1)
+        profileViewController.tabBarItem = UITabBarItem(title: "" , image: UIImage(named: "profile"), tag: 1)
+        profileViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
 
         self.viewControllers = [homeViewController, profileViewController]
     }

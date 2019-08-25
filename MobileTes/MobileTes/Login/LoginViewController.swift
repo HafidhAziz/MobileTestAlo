@@ -50,16 +50,18 @@ class LoginViewController: UIViewController {
     func doValidate() {
         let email = tfEmail.text!
         let password = tfPassword.text!
-        if email.count > 0 {
-            if password.count > 0 {
+        
+        if email.count > 0 && email.count > 3 {
+            if password.count > 0 && password.count >= 5 {
     //                    doLogin(userName: username, password: password)
+                UserDefaults.standard.set(true, forKey: "isLogged")
                 self.navigationController?.pushViewController(MainTabbar(), animated: true)
             } else {
                 showAlert(title: "Error", message: "Silahkan input Password Anda")
                 tfPassword.becomeFirstResponder()
             }
         } else {
-            showAlert(title: "Error", message: "Silahkan input Email & Password Anda")
+            showAlert(title: "Error", message: "Silahkan input Email Anda")
             tfEmail.becomeFirstResponder()
         }
     }
